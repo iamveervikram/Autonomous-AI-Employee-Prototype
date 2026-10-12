@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CentrAlign AI — Autonomous AI Employee</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-app: #f8fafc;
+            --bg-surface: #ffffff;
+            --bg-subtle: #f1f5f9;
+            --border: #e2e8f0;
+            --border-strong: #cbd5e1;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --brand: #111827;
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
+            --accent-soft: #eff6ff;
+            --success-bg: #ecfdf5;
+            --success-text: #065f46;
+            --success-border: #a7f3d0;
+            --danger-bg: #fef2f2;
+            --danger-text: #991b1b;
+            --danger-border: #fecaca;
+            --warning-bg: #fffbeb;
+            --warning-text: #92400e;
+            --warning-border: #fde68a;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background-color: var(--bg-app);
+            color: var(--text-primary);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Top Enterprise Navigation Bar */
+        .topbar {
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border);
+            padding: 0 2rem;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 30;
+        }
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+        .logo-mark {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-weight: 700;
+            font-size: 0.98rem;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            text-decoration: none;
+        }
+        .logo-square {
+            width: 26px;
+            height: 26px;
+            background: var(--brand);
+            color: #fff;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
+        .breadcrumb-sep {
+            color: var(--border-strong);
+            font-size: 1.1rem;
+        }
+        .breadcrumb-current {
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+            font-weight: 500;
+        }
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+        }
+        .env-indicator {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            background: var(--bg-subtle);
+            border: 1px solid var(--border);
+            padding: 0.25rem 0.65rem;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .env-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #10b981;
+        }
+
+        /* Main Page Container */
+        .page-container {
+            max-width: 1420px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem 3rem;
+        }
+
+        .page-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 1.25rem;
+        }
+        .page-heading h1 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            color: var(--text-primary);
+        }
+        .page-heading p {
+            font-size: 0.86rem;
+            color: var(--text-muted);
+            margin-top: 0.15rem;
+        }
+
+        /* Workspace Split Grid */
+        .workspace-grid {
+            display: grid;
+            grid-template-columns: 5.5fr 6.5fr;
+            gap: 1.5rem;
+            align-items: start;
+        }
+        @media (max-width: 1080px) {
+            .workspace-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Surface Cards */
+        .panel {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+            overflow: hidden;
+            margin-bottom: 1.25rem;
+        }
+        .panel-header {
+            padding: 0.9rem 1.25rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fcfcfd;
+        }
+        .panel-title {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .panel-body {
+            padding: 1.2rem;
+        }
+
+        /* 12-Point Capability Matrix Grid */
+        .criteria-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.45rem;
+            margin-bottom: 1.1rem;
+            padding: 0.8rem;
+            background: var(--bg-subtle);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+        .criterion-item {
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            padding: 0.25rem 0.4rem;
+            border-radius: 5px;
+            transition: all 0.2s ease;
+        }
+        .criterion-item.done {
+            color: var(--success-text);
+            font-weight: 600;
+            background: #ffffff;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+        }
+        .criterion-check {
+            width: 14px;
+            height: 14px;
+            border-radius: 4px;
+            border: 1.5px solid var(--border-strong);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.62rem;
+            flex-shrink: 0;
+            background: #ffffff;
+            color: transparent;
+        }
+        .criterion-item.done .criterion-check {
+            background: #10b981;
+            border-color: #10b981;
+            color: #ffffff;
+        }
+
+        /* Buttons */
+        .btn {
+            font-family: inherit;
+            padding: 0.5rem 0.95rem;
+            border-radius: 6px;
+            border: 1px solid transparent;
+            font-weight: 500;
+            font-size: 0.84rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+        }
+        .btn-primary { background: var(--brand); color: #ffffff; }
+        .btn-primary:hover { background: #1e293b; }
+        .btn-secondary {
+            background: var(--bg-surface);
+            border-color: var(--border-strong);
+            color: var(--text-primary);
+        }
+        .btn-secondary:hover { background: var(--bg-subtle); }
+        .btn-approve { background: #059669; color: #ffffff; }
+        .btn-approve:hover { background: #047857; }
+        .btn-reject {
+            background: var(--bg-surface);
+            border-color: #fca5a5;
+            color: #b91c1c;
+        }
+        .btn-reject:hover { background: var(--danger-bg); }
+
+        /* Command Input Box */
+        .command-label {
+            display: block;
+            font-size: 0.76rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 0.4rem;
+        }
+        .command-bar {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.65rem;
+        }
+        .command-input {
+            flex: 1;
+            font-family: inherit;
+            padding: 0.58rem 0.85rem;
+            border-radius: 6px;
+            border: 1px solid var(--border-strong);
+            background: var(--bg-surface);
+            color: var(--text-primary);
+            font-size: 0.86rem;
+            outline: none;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        }
+        .command-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+
+        /* Sample Prompts Row */
+        .samples-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.4rem;
+            padding-bottom: 0.9rem;
+            margin-bottom: 0.9rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .sample-chip {
+            font-family: inherit;
+            background: var(--bg-subtle);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 0.74rem;
+            font-weight: 500;
+            padding: 0.24rem 0.58rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.12s ease;
+        }
+        .sample-chip:hover {
+            background: var(--accent-soft);
+            border-color: #bfdbfe;
+            color: var(--accent);
+        }
+
+        /* Human-in-the-Loop Approval Banner */
+        .approval-card {
+            display: none;
+            background: var(--warning-bg);
+            border: 1px solid #f59e0b;
+            border-left: 4px solid #d97706;
+            border-radius: 8px;
+            padding: 1rem 1.1rem;
+            margin-bottom: 1rem;
+        }
+        .approval-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.35rem;
+        }
+        .approval-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--warning-text);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+        .approval-tag {
+            font-size: 0.68rem;
+            font-weight: 600;
+            background: #fef3c7;
+            color: #92400e;
+            padding: 0.1rem 0.45rem;
+            border-radius: 4px;
+            border: 1px solid #fde68a;
+        }
+        .approval-desc {
+            font-size: 0.84rem;
+            color: #78350f;
+            margin-bottom: 0.85rem;
+            white-space: pre-wrap;
+        }
+        .approval-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        .approval-note-input {
+            flex: 1;
+            min-width: 150px;
+            font-family: inherit;
+            padding: 0.45rem 0.7rem;
+            border-radius: 6px;
+            border: 1px solid #fcd34d;
+            background: #ffffff;
+            color: var(--text-primary);
+            font-size: 0.8rem;
+        }
+
+        /* Activity Feed / Execution Log */
+        .feed-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.45rem;
+        }
+        .feed-label {
+            font-size: 0.73rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--text-muted);
+        }
+        .activity-stream {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.8rem;
+            max-height: 460px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.55rem;
+        }
+        .empty-feed {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: var(--text-muted);
+            font-size: 0.83rem;
+        }
+        .step-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.65rem 0.85rem;
+            font-size: 0.82rem;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.02);
+        }
+        .step-card.step-goal { border-left: 3px solid var(--brand); }
+        .step-card.step-plan { border-left: 3px solid #4f46e5; background: #eef2ff; border-color: #c7d2fe; }
+        .step-card.step-tool_call { border-left: 3px solid var(--accent); }
+        .step-card.step-tool_observation { border-left: 3px solid #64748b; background: #f8fafc; }
+        .step-card.step-failure_observed {
+            border: 1px solid var(--danger-border);
+            border-left: 4px solid #dc2626;
+            background: #fef2f2;
+        }
+        .step-card.step-recovery,
+        .step-card.step-recovery_success {
+            border: 1px solid #bfdbfe;
+            border-left: 4px solid #2563eb;
+            background: #eff6ff;
+        }
+        .step-card.step-hitl_pause { border-left: 3px solid #d97706; background: #fffbeb; }
+        .step-card.step-hitl_decision { border-left: 3px solid #059669; }
+        .step-card.step-verified,
+        .step-card.step-ai_message {
+            border: 1px solid var(--success-border);
+            border-left: 4px solid #059669;
+            background: #f0fdf4;
+        }
+        .step-card.step-error { border-left: 3px solid #dc2626; background: var(--danger-bg); }
+
+        .step-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.3rem;
+            gap: 0.5rem;
+        }
+        .step-title-group {
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            flex-wrap: wrap;
+        }
+        .phase-pill {
+            font-size: 0.66rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            padding: 0.1rem 0.42rem;
+            border-radius: 4px;
+            background: var(--bg-subtle);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-strong);
+        }
+        .step-card.step-plan .phase-pill { background: #e0e7ff; color: #3730a3; border-color: #a5b4fc; }
+        .step-card.step-failure_observed .phase-pill { background: #fee2e2; color: #991b1b; border-color: #fca5a5; }
+        .step-card.step-recovery .phase-pill,
+        .step-card.step-recovery_success .phase-pill { background: #dbeafe; color: #1e40af; border-color: #93c5fd; }
+        .step-card.step-verified .phase-pill,
+        .step-card.step-ai_message .phase-pill { background: #d1fae5; color: #065f46; border-color: #6ee7b7; }
+
+        .step-title {
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: var(--text-primary);
+        }
+        .step-time {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+        .step-body {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.76rem;
+            color: var(--text-secondary);
+            white-space: pre-wrap;
+            word-break: break-word;
+            line-height: 1.45;
+        }
+        .step-card.step-ai_message .step-body,
+        .step-card.step-goal .step-body,
+        .step-card.step-plan .step-body {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.83rem;
+            color: var(--text-primary);
+        }
+
+        /* Status Pill */
+        .run-badge {
+            padding: 0.2rem 0.6rem;
+            border-radius: 999px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+        .run-idle { background: var(--bg-subtle); color: var(--text-secondary); border: 1px solid var(--border); }
+        .run-running { background: var(--accent-soft); color: var(--accent); border: 1px solid #bfdbfe; }
+        .run-waiting_hitl { background: var(--warning-bg); color: var(--warning-text); border: 1px solid var(--warning-border); }
+        .run-completed { background: var(--success-bg); color: var(--success-text); border: 1px solid var(--success-border); }
+        .run-error { background: var(--danger-bg); color: var(--danger-text); border: 1px solid var(--danger-border); }
+
+        /* Employee Table */
+        .table-wrapper { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td {
+            text-align: left;
+            padding: 0.78rem 1rem;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.84rem;
+        }
+        th {
+            background: #f8fafc;
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        tbody tr:last-child td { border-bottom: none; }
+        tbody tr:hover { background: #f8fafc; }
+        .emp-id-code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.76rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            background: var(--bg-subtle);
+            padding: 0.14rem 0.42rem;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+        }
+        .emp-name { font-weight: 600; color: var(--text-primary); }
+        .emp-sub { font-size: 0.75rem; color: var(--text-muted); }
+
+        /* Status Badges */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.18rem 0.55rem;
+            border-radius: 999px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+        .badge-dot { width: 6px; height: 6px; border-radius: 50%; }
+        .badge-active { background: var(--success-bg); color: var(--success-text); border: 1px solid var(--success-border); }
+        .badge-active .badge-dot { background: #10b981; }
+        .badge-inactive { background: var(--danger-bg); color: var(--danger-text); border: 1px solid var(--danger-border); }
+        .badge-inactive .badge-dot { background: #ef4444; }
+        .badge-intact { background: var(--bg-subtle); color: var(--text-secondary); border: 1px solid var(--border-strong); }
+        .badge-purged { background: var(--warning-bg); color: var(--warning-text); border: 1px solid var(--warning-border); }
+
+        /* Audit Log Table / List */
+        .audit-list { list-style: none; max-height: 230px; overflow-y: auto; }
+        .audit-list li {
+            padding: 0.58rem 1.2rem;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.79rem;
+            display: flex;
+            align-items: baseline;
+            gap: 0.6rem;
+        }
+        .audit-list li:last-child { border-bottom: none; }
+        .audit-time {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+        .audit-action {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            background: var(--bg-subtle);
+            padding: 0.1rem 0.38rem;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="topbar">
+        <div class="topbar-left">
+            <a href="/" class="logo-mark">
+                <span class="logo-square">C</span>
+                <span>CentrAlign AI</span>
+            </a>
+            <span class="breadcrumb-sep">/</span>
+            <span class="breadcrumb-current">Autonomous AI Employee</span>
+        </div>
+        <div class="topbar-right">
+            <span class="env-indicator">
+                <span class="env-dot"></span>
+                Internal Workspace
+            </span>
+            <form action="/reset-db" method="post">
+                <button type="submit" id="reset-db-btn" data-test-id="reset-db-btn" class="btn btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.78rem;">
+                    Reset Seed Data
+                </button>
+            </form>
+        </div>
+    </nav>
+
+    <main class="page-container">
+        <div class="page-heading">
+            <div>
+                <h1>Employee Offboarding &amp; Access Control</h1>
+                <p>Autonomous execution loop: Understand &rarr; Plan &rarr; Execute &rarr; Observe &rarr; Recover &rarr; Approve &rarr; Verify &rarr; Complete</p>
+            </div>
+        </div>
+
+        <div class="workspace-grid">
+            <!-- LEFT PANEL: WORKFLOW OPERATOR & CAPABILITY MATRIX -->
+            <div>
+                <section class="panel">
+                    <div class="panel-header">
+                        <div class="panel-title">
+                            <span>Autonomous Task Runner</span>
+                        </div>
+                        <span id="agent-status-pill" class="run-badge run-idle">Ready</span>
+                    </div>
+
+                    <div class="panel-body">
+                        <label class="command-label" for="agent-task-input">Business Objective</label>
+                        <div class="command-bar">
+                            <input
+                                type="text"
+                                id="agent-task-input"
+                                class="command-input"
+                                placeholder="e.g., Please offboard Radha Krishna Murthy."
+                                value="Please offboard Radha Krishna Murthy."
+                            />
+                            <button type="button" id="run-agent-btn" class="btn btn-primary" onclick="startAgentTask()">
+                                Run Workflow
+                            </button>
+                        </div>
+
+                        <div class="samples-row">
+                            <span style="font-size: 0.73rem; color: var(--text-muted); margin-right: 0.15rem;">Presets:</span>
+                            <button type="button" class="sample-chip" onclick="setTaskPreset('Please offboard Radha Krishna Murthy.')">
+                                Radha Krishna Murthy (Fuzzy Name + Recovery)
+                            </button>
+                            <button type="button" class="sample-chip" onclick="setTaskPreset('Please offboard John Doe.')">
+                                John Doe (Exact Match + Recovery)
+                            </button>
+                            <button type="button" class="sample-chip" onclick="setTaskPreset('Please offboard Jane Smith.')">
+                                Jane Smith
+                            </button>
+                            <label style="font-size: 0.74rem; color: var(--text-secondary); margin-left: auto; display: inline-flex; align-items: center; gap: 0.32rem; cursor: pointer;">
+                                <input type="checkbox" id="reset-before-run" checked /> Reset DB first
+                            </label>
+                        </div>
+
+                        <!-- Live 12-Point Autonomous Capability Checklist -->
+                        <div class="feed-header">
+                            <span class="feed-label">Autonomous Capabilities Demonstrated (Live Tracker)</span>
+                        </div>
+                        <div class="criteria-grid" id="criteria-grid">
+                            <div class="criterion-item" data-crit="understanding_outcome">
+                                <span class="criterion-check">&#10003;</span>
+                                <span>1. Understand user's intended outcome</span>
+                            </div>
+                            <div class="criterion-item" data-crit="determining_work">
+                                <span class="criterion-check">&#10003;</span>
+                                <span>2. Determine what needs to be done</span>
+                            </div>
+                            <div class="criterion-item" data-crit="planning_actions">
+                                <span class="criterion-check">&#10003;</span>
+                                <span>3. Plan the required actions</span>
+                            </div>
+                            <div class="criterion-item" data-crit="selecting_tools">
+                                <span class="criterion-check">&#10003;</span>
+                                <span>4. Select appropriate tools</span>
+                            </div>
+                            <div class="criterion-item" data-crit="executing_actions">
+                                <span class="criterion-check">&#10003;</span>
+                                <span>5. Execute actions (DB &amp; Browser)</span>
+                            </div>
+                            <div class="criterion-item" data-crit="observing_result">
+                                <span class="criterion-check">&#10003;</span>
+                                <span>6. Observe what happened</span>
+                            </div>
+                            <div class="criterion-item" data-crit="determining_next">
+                                <span class="criterion-check">&#10003;</span>
+                                <span>7. Determine next action from result</span>
+                            </div>
+                            <div class="criterion-item" data-crit="recovering_failures">
+                                <span class="criterion-check">&#10003;</span>
+                                <span>8. Recover from failures (Self-Heal)</span>
+                            </div>
+                            <div class="criterion-item" data-crit="state_context">
+                                <span class="criterion-check">&#10003;</span>
+                                <span>9. Maintain relevant state / context</span>
+                            </div>
+                            <div class="criterion-item" data-crit="human_approval">
+                                <span class="criterion-check">&#10003;</span>
+                                <span>10. Ask for human input / approval</span>
+                            </div>
+                            <div class="criterion-item" data-crit="verifying_outcome">
+                                <span class="criterion-check">&#10003;</span>
+                                <span>11. Verify outcome was completed</span>
+                            </div>
+                            <div class="criterion-item" data-crit="evidence_summary">
+                                <span class="criterion-check">&#10003;</span>
+                                <span>12. Return evidence &amp; summary</span>
+                            </div>
+                        </div>
+
+                        <!-- Human-in-the-Loop Approval Banner -->
+                        <div id="hitl-container" class="approval-card">
+                            <div class="approval-header">
+                                <span class="approval-title" id="hitl-title">Action Required</span>
+                                <span class="approval-tag">Human Review</span>
+                            </div>
+                            <div class="approval-desc" id="hitl-question"></div>
+                            <div class="approval-controls">
+                                <button type="button" class="btn btn-approve" onclick="submitHitlDecision('approve')">
+                                    Approve &amp; Continue
+                                </button>
+                                <button type="button" class="btn btn-reject" onclick="submitHitlDecision('deny')">
+                                    Deny Action
+                                </button>
+                                <input
+                                    type="text"
+                                    id="hitl-custom-text"
+                                    class="approval-note-input"
+                                    placeholder="Or enter a custom note..."
+                                />
+                                <button type="button" class="btn btn-secondary" onclick="submitCustomHitl()">
+                                    Submit Note
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Execution Activity Log -->
+                        <div class="feed-header">
+                            <span class="feed-label">Step-by-Step Execution Trace</span>
+                        </div>
+                        <div id="agent-timeline" class="activity-stream">
+                            <div class="empty-feed">
+                                Click <strong>Run Workflow</strong> above to watch all 12 capabilities check off live as the agent plans, queries the DB, handles SSO session lock failures, requests approval, and verifies the result.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- RIGHT PANEL: EMPLOYEE DIRECTORY & AUDIT TRAIL -->
+            <div>
+                <section class="panel">
+                    <div class="panel-header">
+                        <div class="panel-title">Employee Directory ({{ employees|length }})</div>
+                        <form style="display: flex; gap: 0.4rem;" action="/" method="get">
+                            <input
+                                type="text"
+                                id="search-input"
+                                data-test-id="search-input"
+                                name="q"
+                                placeholder="Filter by name or ID..."
+                                value="{{ search_query }}"
+                                class="command-input"
+                                style="padding: 0.32rem 0.65rem; font-size: 0.8rem; width: 190px;"
+                            />
+                            <button type="submit" id="search-btn" data-test-id="search-btn" class="btn btn-secondary" style="padding: 0.32rem 0.7rem; font-size: 0.78rem;">
+                                Filter
+                            </button>
+                            {% if search_query %}
+                            <a href="/" class="btn btn-secondary" style="padding: 0.32rem 0.6rem; font-size: 0.78rem;">Clear</a>
+                            {% endif %}
+                        </form>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table id="employees-table" data-test-id="employees-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Employee</th>
+                                    <th>Role &amp; Team</th>
+                                    <th>Access Status</th>
+                                    <th>Data Vault</th>
+                                    <th style="text-align: right;">Profile</th>
+                                </tr>
+                            </thead>
+                            <tbody id="employees-tbody">
+                                {% for emp in employees %}
+                                <tr data-employee-id="{{ emp.id }}">
+                                    <td><span class="emp-id-code">{{ emp.id }}</span></td>
+                                    <td>
+                                        <div class="emp-name">{{ emp.name }}</div>
+                                        <div class="emp-sub">{{ emp.email }}</div>
+                                    </td>
+                                    <td>
+                                        <div style="font-weight: 500; color: var(--text-primary);">{{ emp.role }}</div>
+                                        <div class="emp-sub">{{ emp.department }}</div>
+                                    </td>
+                                    <td>
+                                        <span
+                                            class="badge {% if emp.status == 'active' %}badge-active{% else %}badge-inactive{% endif %}"
+                                            data-test-id="status-{{ emp.id }}"
+                                        >
+                                            <span class="badge-dot"></span>
+                                            {{ emp.status }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span
+                                            class="badge {% if emp.vault_status == 'intact' %}badge-intact{% else %}badge-purged{% endif %}"
+                                            data-test-id="vault-{{ emp.id }}"
+                                        >
+                                            {{ emp.vault_status }}
+                                        </span>
+                                    </td>
+                                    <td style="text-align: right;">
+                                        <a
+                                            href="/employee/{{ emp.id }}"
+                                            id="view-{{ emp.id }}"
+                                            data-test-id="view-{{ emp.id }}"
+                                            class="btn btn-secondary"
+                                            style="padding: 0.3rem 0.65rem; font-size: 0.78rem;"
+                                        >
+                                            Manage
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="panel">
+                    <div class="panel-header">
+                        <div class="panel-title">System Audit Log</div>
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Real-time telemetry</span>
+                    </div>
+                    <ul class="audit-list" id="audit-logs" data-test-id="audit-logs">
+                        {% for log in audit_logs %}
+                        <li>
+                            <span class="audit-time">{{ log.timestamp }}</span>
+                            <span class="emp-id-code">{{ log.employee_id }}</span>
+                            <span class="audit-action">{{ log.action }}</span>
+                            <span style="color: var(--text-secondary);">{{ log.details }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let currentSessionId = null;
+        let pollTimer = null;
+        let renderedStepCount = 0;
+
+        function setTaskPreset(text) {
+            document.getElementById("agent-task-input").value = text;
+        }
+
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+        }
+
+        function updateStatusPill(status) {
+            const pill = document.getElementById("agent-status-pill");
+            pill.className = "run-badge run-" + status;
+            const labels = {
+                idle: "Ready",
+                running: "In Progress",
+                waiting_hitl: "Awaiting Review",
+                completed: "Verified & Complete",
+                error: "Failed"
+            };
+            pill.textContent = labels[status] || status;
+        }
+
+        function updateCriteriaChecklist(criteria) {
+            if (!criteria) return;
+            const items = document.querySelectorAll("#criteria-grid .criterion-item");
+            items.forEach(el => {
+                const key = el.getAttribute("data-crit");
+                if (criteria[key]) {
+                    el.classList.add("done");
+                } else {
+                    el.classList.remove("done");
+                }
+            });
+        }
+
+        function renderEmployeesAndLogs(employees, auditLogs) {
+            const tbody = document.getElementById("employees-tbody");
+            if (tbody && Array.isArray(employees)) {
+                tbody.innerHTML = employees.map(emp => `
+                    <tr data-employee-id="${escapeHtml(emp.id)}">
+                        <td><span class="emp-id-code">${escapeHtml(emp.id)}</span></td>
+                        <td>
+                            <div class="emp-name">${escapeHtml(emp.name)}</div>
+                            <div class="emp-sub">${escapeHtml(emp.email)}</div>
+                        </td>
+                        <td>
+                            <div style="font-weight: 500; color: var(--text-primary);">${escapeHtml(emp.role)}</div>
+                            <div class="emp-sub">${escapeHtml(emp.department)}</div>
+                        </td>
+                        <td>
+                            <span class="badge ${emp.status === 'active' ? 'badge-active' : 'badge-inactive'}" data-test-id="status-${escapeHtml(emp.id)}">
+                                <span class="badge-dot"></span>
+                                ${escapeHtml(emp.status)}
+                            </span>
+                        </td>
+                        <td>
+                            <span class="badge ${emp.vault_status === 'intact' ? 'badge-intact' : 'badge-purged'}" data-test-id="vault-${escapeHtml(emp.id)}">
+                                ${escapeHtml(emp.vault_status)}
+                            </span>
+                        </td>
+                        <td style="text-align: right;">
+                            <a href="/employee/${escapeHtml(emp.id)}" id="view-${escapeHtml(emp.id)}" data-test-id="view-${escapeHtml(emp.id)}" class="btn btn-secondary" style="padding: 0.3rem 0.65rem; font-size: 0.78rem;">
+                                Manage
+                            </a>
+                        </td>
+                    </tr>
+                `).join("");
+            }
+
+            const logsEl = document.getElementById("audit-logs");
+            if (logsEl && Array.isArray(auditLogs)) {
+                logsEl.innerHTML = auditLogs.map(log => `
+                    <li>
+                        <span class="audit-time">${escapeHtml(log.timestamp)}</span>
+                        <span class="emp-id-code">${escapeHtml(log.employee_id)}</span>
+                        <span class="audit-action">${escapeHtml(log.action)}</span>
+                        <span style="color: var(--text-secondary);">${escapeHtml(log.details)}</span>
+                    </li>
+                `).join("");
+            }
+        }
+
+        function renderTimeline(steps) {
+            const container = document.getElementById("agent-timeline");
+            if (!Array.isArray(steps) || steps.length === 0) return;
+
+            if (steps.length === renderedStepCount) return;
+            renderedStepCount = steps.length;
+
+            container.innerHTML = steps.map(s => `
+                <div class="step-card step-${escapeHtml(s.type)}">
+                    <div class="step-meta">
+                        <div class="step-title-group">
+                            ${s.phase ? `<span class="phase-pill">${escapeHtml(s.phase)}</span>` : ""}
+                            <span class="step-title">${escapeHtml(s.title)}</span>
+                        </div>
+                        <span class="step-time">${escapeHtml(s.timestamp)}</span>
+                    </div>
+                    <div class="step-body">${escapeHtml(s.detail)}</div>
+                </div>
+            `).join("");
+
+            container.scrollTop = container.scrollHeight;
+        }
+
+        async function startAgentTask() {
+            const taskInput = document.getElementById("agent-task-input");
+            const resetDb = document.getElementById("reset-before-run").checked;
+            const task = taskInput.value.trim();
+            if (!task) return;
+
+            if (pollTimer) clearInterval(pollTimer);
+            renderedStepCount = 0;
+            document.getElementById("hitl-container").style.display = "none";
+            document.getElementById("agent-timeline").innerHTML = "";
+            updateCriteriaChecklist({});
+            updateStatusPill("running");
+
+            const res = await fetch("/api/agent/start", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ task: task, reset_db: resetDb })
+            });
+            const data = await res.json();
+            currentSessionId = data.session_id;
+
+            pollTimer = setInterval(pollSessionStatus, 800);
+            pollSessionStatus();
+        }
+
+        async function pollSessionStatus() {
+            if (!currentSessionId) return;
+            try {
+                const res = await fetch(`/api/agent/status/${currentSessionId}`);
+                if (!res.ok) return;
+                const data = await res.json();
+                const session = data.session;
+
+                updateStatusPill(session.status);
+                updateCriteriaChecklist(session.criteria);
+                renderTimeline(session.steps);
+                renderEmployeesAndLogs(data.employees, data.audit_logs);
+
+                const hitlBox = document.getElementById("hitl-container");
+                if (session.status === "waiting_hitl" && session.pending_hitl) {
+                    document.getElementById("hitl-title").textContent = session.pending_hitl.title;
+                    document.getElementById("hitl-question").textContent = session.pending_hitl.question;
+                    hitlBox.style.display = "block";
+                } else {
+                    hitlBox.style.display = "none";
+                }
+
+                if (session.status === "completed" || session.status === "error") {
+                    clearInterval(pollTimer);
+                    pollTimer = null;
+                }
+            } catch (err) {
+                console.error("Polling error:", err);
+            }
+        }
+
+        async function submitHitlDecision(decisionStr) {
+            if (!currentSessionId) return;
+            document.getElementById("hitl-container").style.display = "none";
+            updateStatusPill("running");
+
+            await fetch("/api/agent/hitl", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    session_id: currentSessionId,
+                    decision: decisionStr
+                })
+            });
+        }
+
+        function submitCustomHitl() {
+            const val = document.getElementById("hitl-custom-text").value.trim();
+            if (!val) return;
+            document.getElementById("hitl-custom-text").value = "";
+            submitHitlDecision(val);
+        }
+    </script>
+</body>
+</html>

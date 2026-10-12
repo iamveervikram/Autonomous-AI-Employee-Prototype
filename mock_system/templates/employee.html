@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ employee.name }} ({{ employee.id }}) — CentrAlign AI — Autonomous AI Employee</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-app: #f8fafc;
+            --bg-surface: #ffffff;
+            --bg-subtle: #f1f5f9;
+            --border: #e2e8f0;
+            --border-strong: #cbd5e1;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --brand: #111827;
+            --accent: #2563eb;
+            --success-bg: #ecfdf5;
+            --success-text: #065f46;
+            --success-border: #a7f3d0;
+            --danger-bg: #fef2f2;
+            --danger-text: #991b1b;
+            --danger-border: #fecaca;
+            --danger-solid: #dc2626;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background-color: var(--bg-app);
+            color: var(--text-primary);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+        .topbar {
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border);
+            padding: 0 2rem;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .logo-mark {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-weight: 700;
+            font-size: 0.98rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+        .logo-square {
+            width: 26px;
+            height: 26px;
+            background: var(--brand);
+            color: #fff;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
+        .container {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .back-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            margin-bottom: 1.25rem;
+        }
+        .back-link:hover { color: var(--text-primary); }
+
+        .panel {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.75rem;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+        }
+        .profile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        .emp-id-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-top: 0.2rem;
+        }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+        .badge-dot { width: 7px; height: 7px; border-radius: 50%; }
+        .badge-active { background: var(--success-bg); color: var(--success-text); border: 1px solid var(--success-border); }
+        .badge-active .badge-dot { background: #10b981; }
+        .badge-inactive { background: var(--danger-bg); color: var(--danger-text); border: 1px solid var(--danger-border); }
+        .badge-inactive .badge-dot { background: #ef4444; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            margin-bottom: 1.75rem;
+        }
+        .field-label {
+            color: var(--text-muted);
+            font-size: 0.74rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-bottom: 0.2rem;
+        }
+        .field-value {
+            font-size: 0.92rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        .alert {
+            background: var(--success-bg);
+            border: 1px solid var(--success-border);
+            color: var(--success-text);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.25rem;
+            font-size: 0.86rem;
+            font-weight: 500;
+        }
+        .danger-zone {
+            border: 1px solid var(--danger-border);
+            background: #fffafa;
+            border-radius: 8px;
+            padding: 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+        .btn {
+            font-family: inherit;
+            padding: 0.55rem 1.1rem;
+            border-radius: 6px;
+            border: 1px solid transparent;
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+        .btn-danger { background: var(--danger-solid); color: white; }
+        .btn-danger:hover { background: #b91c1c; }
+        .btn-disabled { background: var(--bg-subtle); border-color: var(--border); color: var(--text-muted); cursor: not-allowed; }
+        .btn-secondary { background: var(--bg-surface); border-color: var(--border-strong); color: var(--text-primary); }
+    </style>
+</head>
+<body>
+    <nav class="topbar">
+        <div class="topbar-left">
+            <a href="/" class="logo-mark">
+                <span class="logo-square">C</span>
+                <span>CentrAlign AI — Autonomous AI Employee</span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <a href="/" id="back-to-dashboard" data-test-id="back-to-dashboard" class="back-link">
+            &larr; Back to Employee Directory
+        </a>
+
+        {% if flash_message %}
+        <div class="alert" id="flash-message" data-test-id="flash-message">
+            {{ flash_message }}
+        </div>
+        {% endif %}
+
+        <div class="panel">
+            <div class="profile-header">
+                <div>
+                    <h1 style="font-size: 1.35rem; font-weight: 700;" id="employee-name" data-test-id="employee-name">{{ employee.name }}</h1>
+                    <p class="emp-id-tag" id="employee-id" data-test-id="employee-id">{{ employee.id }}</p>
+                </div>
+                <span
+                    id="account-status-badge"
+                    data-test-id="account-status-badge"
+                    class="badge {% if employee.status == 'active' %}badge-active{% else %}badge-inactive{% endif %}"
+                >
+                    <span class="badge-dot"></span>
+                    {{ employee.status }}
+                </span>
+            </div>
+
+            <div class="grid">
+                <div>
+                    <div class="field-label">Work Email</div>
+                    <div class="field-value" id="employee-email" data-test-id="employee-email">{{ employee.email }}</div>
+                </div>
+                <div>
+                    <div class="field-label">Role</div>
+                    <div class="field-value" id="employee-role" data-test-id="employee-role">{{ employee.role }}</div>
+                </div>
+                <div>
+                    <div class="field-label">Department</div>
+                    <div class="field-value" id="employee-department" data-test-id="employee-department">{{ employee.department }}</div>
+                </div>
+                <div>
+                    <div class="field-label">Data Vault State</div>
+                    <div class="field-value" id="vault-status-value" data-test-id="vault-status-value">{{ employee.vault_status }}</div>
+                </div>
+                <div>
+                    <div class="field-label">Last Modified</div>
+                    <div class="field-value" id="updated-at-value">{{ employee.updated_at }}</div>
+                </div>
+            </div>
+
+            <div class="danger-zone">
+                <div>
+                    <h3 style="color: var(--danger-text); font-size: 0.92rem; font-weight: 600;">Revoke Account Access</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.82rem; margin-top: 0.15rem;">
+                        Immediately disables SSO login, VPN certificates, and internal workspace permissions.
+                    </p>
+                </div>
+
+                {% if employee.status == 'active' %}
+                <form action="/employee/{{ employee.id }}/deactivate" method="post">
+                    <button
+                        type="submit"
+                        id="deactivate-btn"
+                        data-test-id="deactivate-btn"
+                        class="btn btn-danger"
+                    >
+                        Deactivate Account
+                    </button>
+                </form>
+                {% else %}
+                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                    <button
+                        type="button"
+                        id="deactivated-disabled-btn"
+                        data-test-id="deactivated-disabled-btn"
+                        class="btn btn-disabled"
+                        disabled
+                    >
+                        Account Deactivated
+                    </button>
+                    <form action="/employee/{{ employee.id }}/activate" method="post">
+                        <button type="submit" id="reactivate-btn" class="btn btn-secondary">
+                            Restore Access
+                        </button>
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
